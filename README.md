@@ -4,7 +4,7 @@ This project can run in a local session of Developer. It requires EmbedPy to be 
 ## Required Python Packages
 This project requires the following python packages:
 - OpenCV - pip install opencv-python
-- Numpy
+- Numpy<br/>
 Note: OpenCV requires Microsoft Visual C++ 14.0 available here: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16
 ## Installation
 - Download the file openCV.q from the repository. 
