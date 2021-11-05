@@ -1,7 +1,7 @@
 # Analogue Gauge Reader
 ## Requirements
 This project can run in a local session of Developer. It requires EmbedPy to be installed.<br/>
-EmbedPY: https://code.kx.com/q/ml/setup/
+EmbedPY: https://code.kx.com/q/ml/embedpy/
 ## Required Python Packages
 This project requires the following python packages:
 - OpenCV - pip install opencv-python
