@@ -183,14 +183,14 @@
     lines:raze .p.py2q .p.call[(cv2`:HoughLinesP)`.; (); 
         `image`rho`theta`threshold`minLineLength`maxLineGap!
         (dst2`.;            /The image
-        3;                  /Rho - Distance resolution of the accumulator in pixels
+        $[null conf`rho; 3; conf`rho];                  /Rho - Distance resolution of the accumulator in pixels
         %[(np`:pi)`;180];   /Theta - Angle resolution of the accumulator in radians
         100;                /Threshold - Accumulator threshold parameter. Only those lines are returned that get enough votes ( > threshold )
         minLineLength;      /Minimum line length. Line segments shorter than that are rejected.
         maxLineGap)];       /Maximum allowed gap between points on the same line to link them.
     
-    diff1LowerBound:0.05; /diff1LowerBound and diff1UpperBound determine how close the line should be from the center
-    diff1UpperBound:0.45;
+    diff1LowerBound:$[null conf`diff1LowerBound; 0.05; conf`diff1LowerBound]; /diff1LowerBound and diff1UpperBound determine how close the line should be from the center
+    diff1UpperBound:$[null conf`diff1UpperBound; 0.45; conf`diff1UpperBound];
     diff2LowerBound:0.5; /diff2LowerBound and diff2UpperBound determine how close the other point of the line should be to the outside of the gauge
     diff2UpperBound:1.0;
 
@@ -202,7 +202,7 @@
         /set diff1 to be the smaller (closest to the center) of the two), makes the math easier
         if[diffs[0]>diffs[1]; diffs:reverse diffs];
         $[((diffs[0]<diff1UpperBound*averages`r) and (diffs[0]>diff1LowerBound*averages`r) and (diffs[1]<diff2UpperBound*averages`r)) and (diffs[1]>diff2LowerBound*averages`r);
-            res,enlist line;
+            res, enlist line;
             res]
      }[diff1LowerBound; diff1UpperBound; diff2LowerBound; diff2UpperBound; averages]/[(); lines];
 
@@ -219,11 +219,11 @@
     /find the farthest point from the center to be what is used to determine the angle   
     $[.gr.dist2Pts[averages`x; averages`y; finalLine[0]; finalLine[1]] > .gr.dist2Pts[averages`x; averages`y; finalLine[2]; finalLine[3]];
         [
-            xAngle: finalLine[0] - averages`x;
+            xAngle: finalLine[0] - averages[`x];
             yAngle: averages[`y] - finalLine[1];
             ];
         [
-            xAngle: finalLine[2] - averages`x;
+            xAngle: finalLine[2] - averages[`x];
             yAngle: averages[`y] - finalLine[3];
             ]];
     /take the arc tan of y/x to find the angle
@@ -235,12 +235,10 @@
     if[.debug.gr.active; .log.out[.z.h; thisFunc; "Reading result: ", string[finalRes], " ", string conf`unit]];
     finalRes
 	}
-GAUGE_CONFIG:([gaugeName:`$()]minAngle:`float$();maxAngle:`float$();minValue:`float$();maxValue:`float$();unit:`$();threshold:`float$();maxLineGap:`float$()) 
+GAUGE_CONFIG:([gaugeName:`$()]minAngle:`float$();maxAngle:`float$();minValue:`float$();maxValue:`float$();unit:`$();threshold:`float$();maxLineGap:`float$();rho:`float$();
+    diff1LowerBound:`float$();diff1UpperBound:`float$()) 
     upsert
     (
-         (`RANDOM_gauge;50f;320f;0f;200f;`PSI;0n;0n)
-        ;(`gauge_sample;20f;340f;-30f;35f;`PSI;0n;0n)
-        ;(`gauge;40.6f;319f;0f;200f;`PSI;0n;0n)
-        ;(`camera;35f;305f;0f;150f;`PSI;0n;0n)
-        ;(`boiler1;40f;312f;0f;15f;`PSI;125f;1f) 
+        (`gauge;40.3f;319f;0f;200f;`PSI;0n;0n;0n;0n;0n)
+        ;(`boiler1;40f;312f;0f;15f;`PSI;125f;1f;0n;0n;0n) 
     )
