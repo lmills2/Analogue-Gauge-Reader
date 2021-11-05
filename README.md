@@ -29,3 +29,4 @@ Once the calibration values have been entered, the function '.gr.read' can be ca
 ![image](https://user-images.githubusercontent.com/90591113/140466867-5d00d7d1-89a8-4e32-93db-413505fb5bb8.png)
 
 
+This is based on the work done in this repo: https://github.com/intel-iot-devkit/python-cv-samples/tree/master/examples/analog-gauge-reader
